@@ -26,9 +26,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import org.apache.commons.io.IOUtils;
-import org.junit.Before;
 import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.rules.RuleChain;
 import org.junit.rules.TestRule;
 import org.jvnet.hudson.test.ExtractResourceSCM;
@@ -51,15 +51,15 @@ public class JenkinsFreestyleTest {
             RuleChain.outerRule(kubernetesRule)
                     .around(jenkinsRule);
 
-    @Before
-    public void before() {
+    @BeforeEach
+    void before() {
         KubernetesClient client = kubernetesRule.getClient();
         Config config = client.getConfiguration();
         TektonUtils.initializeKubeClients(config);
     }
 
     @Test
-    public void testFreestyleJobWithFileInput() throws Exception {
+    void testFreestyleJobWithFileInput() throws Exception {
         TaskBuilder taskBuilder = new TaskBuilder()
                 .withNewMetadata()
                     .withName("testTask")
@@ -88,7 +88,7 @@ public class JenkinsFreestyleTest {
     }
 
     @Test
-    public void testFreestyleJobWithYamlInput() throws Exception {
+    void testFreestyleJobWithYamlInput() throws Exception {
         TaskBuilder taskBuilder = new TaskBuilder()
                 .withNewMetadata()
                     .withName("testTask")
@@ -120,7 +120,7 @@ public class JenkinsFreestyleTest {
     }
 
     @Test
-    public void testFreestyleJobWithComplexYamlInput() throws Exception {
+    void testFreestyleJobWithComplexYamlInput() throws Exception {
         ToolUtils.getJXPipelineBinary(ToolUtils.class.getClassLoader());
 
         PipelineRunBuilder pipelineRunBuilder = new PipelineRunBuilder()
@@ -229,7 +229,7 @@ public class JenkinsFreestyleTest {
     }
 
     @Test
-    public void testFreestyleJobWithExpandedYamlInput() throws Exception {
+    void testFreestyleJobWithExpandedYamlInput() throws Exception {
         ToolUtils.getJXPipelineBinary(ToolUtils.class.getClassLoader());
 
         PipelineRunBuilder pipelineRunBuilder = new PipelineRunBuilder()

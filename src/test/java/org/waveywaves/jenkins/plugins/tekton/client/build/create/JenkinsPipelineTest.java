@@ -24,9 +24,9 @@ import java.net.URL;
 import org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition;
 import org.jenkinsci.plugins.workflow.job.WorkflowJob;
 import org.jenkinsci.plugins.workflow.job.WorkflowRun;
-import org.junit.Before;
 import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.rules.RuleChain;
 import org.junit.rules.TestRule;
 import org.jvnet.hudson.test.JenkinsRule;
@@ -49,15 +49,15 @@ public class JenkinsPipelineTest {
             RuleChain.outerRule(kubernetesRule)
                     .around(jenkinsRule);
 
-    @Before
-    public void before() {
+    @BeforeEach
+    void before() {
         KubernetesClient client = kubernetesRule.getClient();
         Config config = client.getConfiguration();
         TektonUtils.initializeKubeClients(config);
     }
 
     @Test
-    public void testScriptedPipelineWithFileInput_Task() throws Exception {
+    void testScriptedPipelineWithFileInput_Task() throws Exception {
         TaskBuilder taskBuilder = new TaskBuilder()
                 .withNewMetadata()
                     .withName("testTask")
@@ -90,7 +90,7 @@ public class JenkinsPipelineTest {
     }
 
     @Test
-    public void testDeclarativePipelineWithFileInput_Task() throws Exception {
+    void testDeclarativePipelineWithFileInput_Task() throws Exception {
         TaskBuilder taskBuilder = new TaskBuilder()
                 .withNewMetadata()
                     .withName("testTask")
@@ -130,7 +130,7 @@ public class JenkinsPipelineTest {
     }
 
     @Test
-    public void testDeclarativePipelineWithYamlInput_Task() throws Exception {
+    void testDeclarativePipelineWithYamlInput_Task() throws Exception {
         TaskBuilder taskBuilder = new TaskBuilder()
                 .withNewMetadata()
                     .withName("testTask")
@@ -175,7 +175,7 @@ public class JenkinsPipelineTest {
 
 
     @Test
-    public void testDeclarativePipelineWithYamlInput_PipelineRun() throws Exception {
+    void testDeclarativePipelineWithYamlInput_PipelineRun() throws Exception {
         ToolUtils.getJXPipelineBinary(ToolUtils.class.getClassLoader());
 
         PipelineRunBuilder pipelineRunBuilder = new PipelineRunBuilder()
@@ -301,7 +301,7 @@ public class JenkinsPipelineTest {
     }
 
     @Test
-    public void testDeclarativePipelineWithYamlInput_PipelineRun_DifferentNamespace() throws Exception {
+    void testDeclarativePipelineWithYamlInput_PipelineRun_DifferentNamespace() throws Exception {
         ToolUtils.getJXPipelineBinary(ToolUtils.class.getClassLoader());
 
         PipelineRunBuilder pipelineRunBuilder = new PipelineRunBuilder()
@@ -427,7 +427,7 @@ public class JenkinsPipelineTest {
     }
 
     @Test
-    public void testDeclarativePipelineWithYamlInput_PipelineRun_FailingContainer() throws Exception {
+    void testDeclarativePipelineWithYamlInput_PipelineRun_FailingContainer() throws Exception {
         ToolUtils.getJXPipelineBinary(ToolUtils.class.getClassLoader());
 
         PipelineRunBuilder pipelineRunBuilder = new PipelineRunBuilder()
@@ -560,7 +560,7 @@ public class JenkinsPipelineTest {
     }
 
     @Test
-    public void testDeclarativePipelineWithYamlInput_PipelineRun_FailingPipelineRun() throws Exception {
+    void testDeclarativePipelineWithYamlInput_PipelineRun_FailingPipelineRun() throws Exception {
         ToolUtils.getJXPipelineBinary(ToolUtils.class.getClassLoader());
 
         PipelineRunBuilder pipelineRunBuilder = new PipelineRunBuilder()
@@ -686,7 +686,7 @@ public class JenkinsPipelineTest {
     }
 
     @Test
-    public void testDeclarativePipelineWithYamlInput_MultipleDocuments() throws Exception {
+    void testDeclarativePipelineWithYamlInput_MultipleDocuments() throws Exception {
         ToolUtils.getJXPipelineBinary(ToolUtils.class.getClassLoader());
 
         WorkflowJob p = jenkinsRule.jenkins.createProject(WorkflowJob.class, "p");
